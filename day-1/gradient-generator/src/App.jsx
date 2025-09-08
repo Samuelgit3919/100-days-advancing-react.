@@ -15,7 +15,6 @@ const App = () => {
     const colorWithHash = `#${colorHex}`
     console.log(colorWithHash)
     return colorWithHash
-
   }
 
   const generateGradient = () => {
@@ -26,11 +25,20 @@ const App = () => {
       const color2 = getHexColorCode();
       const degree = Math.floor(Math.random() * 360);
       const degreeString = `${degree}deg`;
-      colors.push({
-        gradient: `linear-gradient(${degreeString}, ${color1}, ${color2})`
-        ,
-        css: `background:  'linear-gradient(${degreeString}, ${color1}, ${color2})'`,
-      })
+      if (type === 'linear') {
+
+        colors.push({
+          gradient: `linear-gradient(${degreeString}, ${color1}, ${color2})`
+          ,
+          css: `background:  'linear-gradient(${degreeString}, ${color1}, ${color2})'`,
+        })
+      } else {
+        colors.push({
+          gradient: `radial-gradient(circle, ${color1}, ${color2})`
+          ,
+          css: `background:  'radial-gradient(circle, ${color1}, ${color2})'`,
+        })
+      }
     }
     setGradient(colors)
   }
@@ -44,13 +52,14 @@ const App = () => {
 
   useEffect(() => {
     generateGradient()
-  }, [num])
+  }, [num, type])
 
 
   return (
     <div className='min-h-screen bg-white py-12'>
-      <div className="w-9/12 mx-auto ">
-        <div className='flex justify-between '>
+      <div className="w-9/12 mx-auto space-y-8">
+        <div
+          className='flex justify-between p-2'>
           <h1 className='text-3xl font-bold'>
             🎨 Gradient Generator {num} {type}
           </h1>
@@ -65,6 +74,7 @@ const App = () => {
               <option value="linear">Linear</option>
               <option value="radial">Radial</option>
             </select>
+            <button onClick={generateGradient} className='px-16 py-2 bg-rose-500 text-white font-medium rounded'>Generate</button>
           </div>
         </div>
         <div className='grid grid-cols-4 gap-4 mt-2'>
