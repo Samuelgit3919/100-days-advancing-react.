@@ -7,6 +7,8 @@ const App = () => {
   const [type, setType] = useState('linear')
   const [gradient, setGradient] = useState([])
 
+
+
   const getHexColorCode = () => {
     const rgb = 255 * 255 * 255
     const random = Math.floor(Math.random() * rgb)
